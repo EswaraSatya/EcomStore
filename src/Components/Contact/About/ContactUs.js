@@ -15,6 +15,7 @@ import "../../TopBar.css";
 import DiamondIcon from "@mui/icons-material/Diamond";
 import { Stack } from "@mui/system";
 import { useNavigate } from "react-router-dom";
+import { Avatar, Card, CardActionArea, CardMedia, Paper } from "@mui/material";
 
 const drawerWidth = 240;
 const navItems = ["About", "Contact"];
@@ -72,12 +73,7 @@ function ContactUs(props) {
           </Typography>
           <Box sx={{ display: { xs: "none", sm: "block" } }}>
             <Stack direction="row" spacing={2}>
-              <Button
-                variant="outlined"
-                color="error"
-                // component={Link}
-                to="/about"
-              >
+              <Button variant="outlined" color="error">
                 About Page
               </Button>
               <Button variant="outlined" color="error">
@@ -111,8 +107,17 @@ function ContactUs(props) {
       <Box component="main" sx={{ p: 3 }}>
         <Toolbar />
         <div className="main_body">
-          <div className="sub_body">
-            <h1>ContactUs</h1>
+          <div className="avatar">
+            <Card sx={{ maxWidth: 345 }}>
+              <CardActionArea>
+                <CardMedia
+                  component="img"
+                  height="140"
+                  image="/static/images/cards/contemplative-reptile.jpg"
+                  alt="green iguana"
+                />
+              </CardActionArea>
+            </Card>
           </div>
         </div>
       </Box>
