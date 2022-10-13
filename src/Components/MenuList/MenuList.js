@@ -17,7 +17,12 @@ export default function MenuList() {
         bgcolor: "background.paper",
       }}
     >
-      <Tabs value={value} onChange={handleChange} centered variant="fullWidth">
+      <Tabs
+        value={value}
+        onChange={handleChange}
+        variant="scrollable"
+        scrollButtons="auto"
+      >
         <Tab value="one" label="All" />
         <Tab label="Clothes" />
         <Tab label="Stiching" />

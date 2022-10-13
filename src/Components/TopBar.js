@@ -19,7 +19,7 @@ import DiamondIcon from "@mui/icons-material/Diamond";
 import MenuList from "./MenuList/MenuList";
 import Products from "./Products/Products";
 import { Stack } from "@mui/system";
-import { useNavigate, useNavigation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const drawerWidth = 240;
 const navItems = ["About", "Contact"];
@@ -159,7 +159,7 @@ function DrawerAppBar(props) {
           <div className="sub_body">
             <h4 className="h4">Popular Tech Staff .</h4>
             <p className="p">
-              High Quality Products With Custom Offers And Fixed Price.
+              High Quality Products With Custom Designs And Fixed Price.
             </p>
             <div className="search">
               <Search>
