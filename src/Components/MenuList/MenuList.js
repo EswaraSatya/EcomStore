@@ -15,6 +15,7 @@ export default function MenuList() {
       sx={{
         width: "100%",
         bgcolor: "background.paper",
+        paddingTop: "15px",
       }}
     >
       <Tabs

@@ -20,6 +20,7 @@ import MenuList from "./MenuList/MenuList";
 import Products from "./Products/Products";
 import { Stack } from "@mui/system";
 import { useNavigate } from "react-router-dom";
+import { Grid } from "@mui/material";
 
 const drawerWidth = 240;
 const navItems = ["About", "Contact"];
@@ -31,7 +32,7 @@ function DrawerAppBar(props) {
     navigate("/ContactUs");
   };
   const HomePage = () => {
-    navigate("/");
+    navigate("/EcomStore");
   };
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -40,24 +41,6 @@ function DrawerAppBar(props) {
     setMobileOpen(!mobileOpen);
   };
 
-  const drawer = (
-    <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
-      <Typography variant="h6" sx={{ my: 2 }}>
-        MUI
-      </Typography>
-      <Divider />
-
-      <List>
-        {navItems.map((item) => (
-          <ListItem key={item} disablePadding>
-            <ListItemButton sx={{ textAlign: "center" }}>
-              <ListItemText primary={item} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-    </Box>
-  );
   const Search = styled("div")(({ theme }) => ({
     position: "relative",
     backgroundColor: "#eeeeee",
@@ -100,87 +83,82 @@ function DrawerAppBar(props) {
 
   return (
     <Box sx={{ display: "flex" }}>
-      <AppBar component="nav">
-        <Toolbar>
-          <DiamondIcon
-            sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
-            onClick={HomePage}
-          />
+      <Grid container spacing={12}>
+        <AppBar component="nav">
+          <Toolbar>
+            <DiamondIcon
+              sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
+              onClick={HomePage}
+            />
 
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
-            style={{ display: "flex" }}
-            onClick={HomePage}
-          >
-            MUI
-          </Typography>
-          <Box sx={{ display: { xs: "none", sm: "block" } }}>
-            <Stack direction="row" spacing={2}>
-              <Button
-                variant="outlined"
-                color="error"
-                // component={Link}
-                to="/about"
-              >
-                About Page
-              </Button>
-              <Button variant="outlined" color="error" onClick={ContactUs}>
-                Contact Us
-              </Button>
-            </Stack>
-          </Box>
-        </Toolbar>
-      </AppBar>
-      <Box component="nav">
-        <Drawer
-          container={container}
-          variant="temporary"
-          open={mobileOpen}
-          onClose={handleDrawerToggle}
-          ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
-          }}
-          sx={{
-            display: { xs: "block", sm: "none" },
-            "& .MuiDrawer-paper": {
-              boxSizing: "border-box",
-              width: drawerWidth,
-            },
-          }}
-        >
-          {drawer}
-        </Drawer>
-      </Box>
-      <Box component="main" sx={{ p: 3 }}>
-        <Toolbar />
-        <div className="main_body">
-          <div className="sub_body">
-            <h4 className="h4">Popular Tech Staff .</h4>
-            <p className="p">
-              High Quality Products With Custom Designs And Fixed Price.
-            </p>
-            <div className="search">
-              <Search>
-                <SearchIconWrapper>
-                  <SearchIcon />
-                </SearchIconWrapper>
-                <StyledInputBase
-                  placeholder="Search…"
-                  inputProps={{ "aria-label": "search" }}
-                />
-              </Search>
-            </div>
-            <div className="menu">
-              <MenuList />
+            <Typography
+              variant="h6"
+              component="div"
+              sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
+              style={{ display: "flex" }}
+              onClick={HomePage}
+            >
+              MUI
+            </Typography>
+            <Box sx={{ display: { xs: "none", sm: "block" } }}>
+              <Stack direction="row" spacing={2}>
+                <Button
+                  variant="outlined"
+                  color="error"
+                  // component={Link}
+                  to="/about"
+                >
+                  About Page
+                </Button>
+                <Button variant="outlined" color="error" onClick={ContactUs}>
+                  Contact Us
+                </Button>
+              </Stack>
+            </Box>
+          </Toolbar>
+        </AppBar>
+        <Box component="nav">
+          <Drawer
+            container={container}
+            variant="temporary"
+            open={mobileOpen}
+            onClose={handleDrawerToggle}
+            ModalProps={{
+              keepMounted: true, // Better open performance on mobile.
+            }}
+            sx={{
+              display: { xs: "block", sm: "none" },
+              "& .MuiDrawer-paper": {
+                boxSizing: "border-box",
+                width: drawerWidth,
+              },
+            }}
+          />
+        </Box>
+        <Box component="main" sx={{ p: 3 }}>
+          <Toolbar />
+          <div className="main_body">
+            <div className="sub_body">
+              <h4 className="h4">Popular Tech Staff .</h4>
+              <p className="p">High Quality Products With Custom Designs</p>
+              <div className="search">
+                <Search onChange={(e) => props.searchItems(e.target.value)}>
+                  <SearchIconWrapper>
+                    <SearchIcon />
+                  </SearchIconWrapper>
+                  <StyledInputBase
+                    placeholder="Search…"
+                    inputProps={{ "aria-label": "search" }}
+                  />
+                </Search>
+              </div>
+              <div className="menu">
+                <MenuList />
+              </div>
             </div>
           </div>
-        </div>
-        <div className="products">
-          <Products />
-        </div>
-      </Box>
+        </Box>
+      </Grid>
     </Box>
   );
 }
