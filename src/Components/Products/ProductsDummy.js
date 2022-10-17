@@ -16,10 +16,18 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import DiamondIcon from "@mui/icons-material/Diamond";
 import { useNavigate } from "react-router-dom";
 import "../TopBar.css";
-import { IconButton, Paper, Skeleton } from "@mui/material";
+import { Paper, Skeleton } from "@mui/material";
 import MenuList from "../MenuList/MenuList";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import SearchBar from "./SearchBar";
+import useScrollTrigger from "@mui/material/useScrollTrigger";
+import Backdrop from "@mui/material/Backdrop";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+import PhoneIcon from "@mui/icons-material/Phone";
 
 function Copyright() {
   return (
@@ -39,17 +47,38 @@ function Copyright() {
 
 const theme = createTheme();
 
-export default function Album() {
+export default function Album(props) {
   const [users, setUsers] = useState([]);
   const [filteredResults, setFilteredResults] = useState([]);
-
   const [isLoading, setIsLoading] = useState(false);
   const [searchText, setSearchText] = useState("");
-
+  const [open, setOpen] = React.useState(false);
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleToggle = () => {
+    setOpen(!open);
+  };
   const navigate = useNavigate();
   const HomePage = () => {
     navigate("/EcomStore");
   };
+
+  function ElevationScroll(props) {
+    const { children, window } = props;
+    // Note that you normally won't need to set the window ref as useScrollTrigger
+    // will default to window.
+    // This is only being set here because the demo is in an iframe.
+    const trigger = useScrollTrigger({
+      disableHysteresis: true,
+      threshold: 0,
+      target: window ? window() : undefined,
+    });
+
+    return React.cloneElement(children, {
+      elevation: trigger ? 4 : 0,
+    });
+  }
 
   const fetchData = () => {
     fetch("https://6347aadd0484786c6e85792f.mockapi.io/CardContent")
@@ -72,6 +101,7 @@ export default function Album() {
           .includes(searchText.toLowerCase());
       });
       setFilteredResults(filteredData);
+      console.log(filteredData, "result");
     } else {
       setFilteredResults(users);
     }
@@ -91,17 +121,20 @@ export default function Album() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <AppBar position="relative">
-        <Toolbar>
-          <DiamondIcon
-            sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
-            onClick={HomePage}
-          />{" "}
-          <Typography variant="h6" color="inherit" noWrap onClick={HomePage}>
-            EcomStore layout
-          </Typography>
-        </Toolbar>
-      </AppBar>
+      <ElevationScroll {...props}>
+        <AppBar>
+          <Toolbar>
+            <DiamondIcon
+              sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
+              onClick={HomePage}
+            />{" "}
+            <Typography variant="h6" color="inherit" noWrap onClick={HomePage}>
+              EcomStore layout
+            </Typography>
+          </Toolbar>
+        </AppBar>
+      </ElevationScroll>
+
       <main>
         {/* Hero unit */}
 
@@ -162,17 +195,17 @@ export default function Album() {
                       display: "flex",
                       flexDirection: "column",
                       borderRadius: "10px",
+                      width: "auto",
                     }}
                   >
                     <CardMedia
                       component="img"
-                      height="280"
-                      sx={{ width: 220, marginLeft: "22px" }}
+                      height="auto"
+                      width="auto" // sx={{ width: 220, marginLeft: "22px" }}
                       image={card.image}
                       alt="green iguana"
                       style={{
                         borderRadius: "15px",
-                        paddingTop: "10px",
                       }}
                     />
                     <CardContent sx={{ flexGrow: 1 }}>
@@ -181,15 +214,53 @@ export default function Album() {
                       </Typography>
                     </CardContent>
                     <CardActions>
-                      <Button color="primary">
-                        <IconButton
-                          color="primary"
-                          aria-label="add to shopping cart"
-                        >
-                          <AddShoppingCartIcon />
-                        </IconButton>
+                      <Button color="primary" onClick={handleToggle}>
+                        <AddShoppingCartIcon />
                         View
                       </Button>
+                      <Backdrop
+                        sx={{
+                          color: "#fff",
+                          zIndex: (theme) => theme.zIndex.drawer + 1,
+                        }}
+                        open={open}
+                        onClick={handleClose}
+                      >
+                        <Dialog
+                          open={open}
+                          onClose={handleClose}
+                          aria-labelledby="alert-dialog-title"
+                          aria-describedby="alert-dialog-description"
+                        >
+                          <DialogTitle id="alert-dialog-title">
+                            {
+                              "Contact Here for Custom Designs on Avaliable Products"
+                            }
+                          </DialogTitle>
+                          <DialogContent dividers>
+                            <p
+                              id="alert-dialog-description"
+                              style={{
+                                fontFamily: "Times New Roman",
+                                fontSize: "30px",
+                                color: "black",
+                              }}
+                            >
+                              You can contact by using This contact Number
+                              <PhoneIcon /> 9966499429
+                            </p>
+                            <DialogContentText>
+                              By the way don't Forgot to share my website with
+                              your Loved Ones
+                            </DialogContentText>
+                          </DialogContent>
+                          <DialogActions>
+                            <Button onClick={handleClose} autoFocus>
+                              Close
+                            </Button>
+                          </DialogActions>
+                        </Dialog>{" "}
+                      </Backdrop>
                     </CardActions>
                   </Paper>
                 )}
