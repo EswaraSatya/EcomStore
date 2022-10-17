@@ -34,13 +34,12 @@ function Copyright() {
     <>
       <Typography variant="body2" color="text.secondary" align="center">
         {"Copyright © "}
-        <Link color="inherit" href="https://mui.com/">
+        <Link color="inherit" href="http://EswaraSatya.github.io/EcomStore">
           Your Website
         </Link>{" "}
         {new Date().getFullYear()}
         {"."}
       </Typography>
-      <div>Social Links</div>
     </>
   );
 }
@@ -101,7 +100,6 @@ export default function Album(props) {
           .includes(searchText.toLowerCase());
       });
       setFilteredResults(filteredData);
-      console.log(filteredData, "result");
     } else {
       setFilteredResults(users);
     }
@@ -180,7 +178,7 @@ export default function Album(props) {
           {/* End hero unit */}
           <Grid container spacing={4}>
             {newData.map((card) => (
-              <Grid item key={card} xs={12} sm={6} md={4}>
+              <Grid item key={card.id} xs={12} sm={6} md={4}>
                 {!isLoading ? (
                   <Skeleton
                     variant="rounded"
@@ -200,7 +198,7 @@ export default function Album(props) {
                   >
                     <CardMedia
                       component="img"
-                      height="auto"
+                      height="380px"
                       width="auto" // sx={{ width: 220, marginLeft: "22px" }}
                       image={card.image}
                       alt="green iguana"
@@ -271,9 +269,6 @@ export default function Album(props) {
       </main>
       {/* Footer */}
       <Box sx={{ bgcolor: "background.paper", p: 6 }} component="footer">
-        <Typography variant="h6" align="center" gutterBottom>
-          Footer
-        </Typography>
         <Typography
           variant="subtitle1"
           align="center"
