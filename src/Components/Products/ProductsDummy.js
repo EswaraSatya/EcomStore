@@ -28,6 +28,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import PhoneIcon from "@mui/icons-material/Phone";
+import SocialIcons from "../SocialIcons/SocialIcons";
 
 function Copyright() {
   return (
@@ -35,7 +36,7 @@ function Copyright() {
       <Typography variant="body2" color="text.secondary" align="center">
         {"Copyright © "}
         <Link color="inherit" href="http://EswaraSatya.github.io/EcomStore">
-          Your Website
+          EcomStore
         </Link>{" "}
         {new Date().getFullYear()}
         {"."}
@@ -141,6 +142,7 @@ export default function Album(props) {
             bgcolor: "background.paper",
             pt: 8,
             pb: 6,
+            paddingTop: "7%",
           }}
         >
           <Container maxWidth="sm">
@@ -277,6 +279,7 @@ export default function Album(props) {
         >
           © 2022 EcomStore. All rights reserved.
         </Typography>
+        <SocialIcons />
         <Copyright />
       </Box>
       {/* End footer */}
