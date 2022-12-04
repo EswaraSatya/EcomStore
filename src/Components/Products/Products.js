@@ -134,7 +134,7 @@ const Products = (props) => {
                       image={data.image}
                       alt="green iguana"
                       style={{
-                        borderRadius: "15px",
+                        borderRadius: "55px",
                         paddingTop: "10px",
                       }}
                     />

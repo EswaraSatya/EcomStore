@@ -14,7 +14,7 @@ export default function SearchBar() {
     justifyContent: "center",
   }));
   const StyledInputBase = styled(InputBase)(({ theme }) => ({
-    color: "inherit",
+    color: "black",
     "& .MuiInputBase-input": {
       padding: theme.spacing(1, 1, 1, 0),
       // vertical padding + font size from searchIcon

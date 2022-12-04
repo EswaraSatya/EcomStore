@@ -21,7 +21,10 @@ const SocialIcons = () => {
           </a>
         </li>
         <li>
-          <a href="#">
+          <a
+            href="https://www.youtube.com/@prasadsuryafd1353/"
+            target="_blank" rel="noreferrer"
+          >
             <i class="fa fa-youtube-play"></i>
           </a>
         </li>

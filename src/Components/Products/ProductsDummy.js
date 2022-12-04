@@ -13,10 +13,14 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Link from "@mui/material/Link";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import DiamondIcon from "@mui/icons-material/Diamond";
+import FavIconnoBG from "./FavIconnoBG.png";
+import FavIconn from "./FavIcon.png";
+import FavIconChanged from "./FavIconChanged.png";
+import FavIconChangedBG from "./FavIconChangedBG.png";
+
 import { useNavigate } from "react-router-dom";
 import "../TopBar.css";
-import { Paper, Skeleton } from "@mui/material";
+import { Avatar, Paper, Skeleton } from "@mui/material";
 import MenuList from "../MenuList/MenuList";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import SearchBar from "./SearchBar";
@@ -25,7 +29,6 @@ import Backdrop from "@mui/material/Backdrop";
 import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import PhoneIcon from "@mui/icons-material/Phone";
 import SocialIcons from "../SocialIcons/SocialIcons";
@@ -116,173 +119,212 @@ export default function Album(props) {
   } else {
     newData = users;
   }
+  const darkTheme = createTheme({
+    status: {
+      danger: "#e53e3e",
+    },
+    palette: {
+      primary: {
+        main: "#000000",
+        darker: "#053e85",
+      },
+      neutral: {
+        main: "#64748B",
+        contrastText: "#fff",
+      },
+    },
+  });
 
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <ElevationScroll {...props}>
-        <AppBar>
-          <Toolbar>
-            <DiamondIcon
-              sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
-              onClick={HomePage}
-            />{" "}
-            <Typography variant="h6" color="inherit" noWrap onClick={HomePage}>
-              EcomStore layout
-            </Typography>
-          </Toolbar>
-        </AppBar>
-      </ElevationScroll>
+    <>
+      <ThemeProvider theme={darkTheme}>
+        <CssBaseline />
+        <ElevationScroll {...props}>
+          <AppBar>
+            <Toolbar>
+              {/* <Avatar src={FavIconnoBG} /> */}
 
-      <main>
-        {/* Hero unit */}
+              <img
+                src={FavIconChangedBG}
+                alt="logo img"
+                width="80"
+                height="80"
+              />
+              <Typography
+                variant="h6"
+                color="inherit"
+                noWrap
+                onClick={HomePage}
+              >
+                PSR Designs
+              </Typography>
+            </Toolbar>
+          </AppBar>
+        </ElevationScroll>
+      </ThemeProvider>
+      <ThemeProvider theme={theme}>
+        <main>
+          {/* Hero unit */}
 
-        <Box
-          sx={{
-            bgcolor: "background.paper",
-            pt: 8,
-            pb: 6,
-            paddingTop: "7%",
-          }}
-        >
-          <Container maxWidth="sm">
-            <Typography
-              component="h4"
-              variant="h4"
-              align="center"
-              color="text.primary"
-              gutterBottom
-            >
-              Customised Botique Products
-            </Typography>
-            <Typography
-              variant="h6"
-              align="center"
-              color="text.secondary"
-              paragraph
-              className="p"
-            >
-              High Quality Products With Custom Designs
-            </Typography>
-            <Stack
-              sx={{ pt: 4 }}
-              direction="row"
-              spacing={2}
-              justifyContent="center"
-            >
-              <SearchBar searchItems={searchItems} />
-            </Stack>
+          <Box
+            sx={{
+              bgcolor: "background.paper",
+              pt: 8,
+              pb: 6,
+              marginTop: "7%",
+            }}
+          >
+            <Container maxWidth="sm">
+              <Typography
+                component="h5"
+                variant="h4"
+                align="center"
+                color="text.primary"
+                fontFamily={"Aclonica Font"}
+              >
+                Customised Botique Products
+              </Typography>
+              <Typography
+                variant="h8"
+                align="center"
+                color="text.secondary"
+                paragraph
+                className="p"
+              >
+                High Quality Products With Custom Designs
+              </Typography>
+              <Stack
+                sx={{ pt: 4 }}
+                direction="row"
+                spacing={2}
+                justifyContent="center"
+              >
+                <SearchBar searchItems={searchItems} />
+              </Stack>
 
-            <MenuList />
-          </Container>
-        </Box>
-        <Container sx={{ py: 0 }} maxWidth="md">
-          {/* End hero unit */}
-          <Grid container spacing={4}>
-            {newData.map((card) => (
-              <Grid item key={card.id} xs={12} sm={6} md={4}>
-                {!isLoading ? (
-                  <Skeleton
-                    variant="rounded"
-                    width={230}
-                    height={385}
-                    sx={{ bgcolor: "grey.600", borderRadius: "10px" }}
-                  />
-                ) : (
-                  <Paper
-                    elevation={20}
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      borderRadius: "10px",
-                      width: "auto",
-                    }}
-                  >
-                    <CardMedia
-                      component="img"
-                      height="380px"
-                      width="auto" // sx={{ width: 220, marginLeft: "22px" }}
-                      image={card.image}
-                      alt="green iguana"
-                      style={{
-                        borderRadius: "15px",
-                      }}
+              <MenuList />
+            </Container>
+          </Box>
+          <Container sx={{ py: 0 }} maxWidth="md">
+            {/* End hero unit */}
+            <Grid container spacing={3}>
+              {newData.map((card) => (
+                <Grid item key={card.id} xs={12} sm={6} md={4}>
+                  {!isLoading ? (
+                    <Skeleton
+                      variant="rounded"
+                      width={230}
+                      height={385}
+                      sx={{ bgcolor: "grey.600", borderRadius: "10px" }}
                     />
-                    <CardContent sx={{ flexGrow: 1 }}>
-                      <Typography gutterBottom variant="h5" component="h2">
-                        {card.title}
-                      </Typography>
-                    </CardContent>
-                    <CardActions>
-                      <Button color="primary" onClick={handleToggle}>
-                        <AddShoppingCartIcon />
-                        View
-                      </Button>
-                      <Backdrop
-                        sx={{
-                          color: "#fff",
-                          zIndex: (theme) => theme.zIndex.drawer + 1,
+                  ) : (
+                    <Paper
+                      elevation={20}
+                      style={{
+                        display: "flex",
+                        flexDirection: "column",
+                        borderRadius: "20px",
+                        width: "auto",
+                      }}
+                    >
+                      <CardMedia
+                        component="img"
+                        height="380px"
+                        width="auto" // sx={{ width: 220, marginLeft: "22px" }}
+                        image={card.image}
+                        alt="green iguana"
+                        style={{
+                          borderRadius: "25px",
                         }}
-                        open={open}
-                        onClick={handleClose}
-                      >
-                        <Dialog
+                      />
+                      <CardContent sx={{ flexGrow: 2 }}>
+                        <Typography gutterBottom variant="h5" component="h2">
+                          {card.title}
+                        </Typography>
+                      </CardContent>
+                      <CardActions>
+                        <Button color="primary" onClick={handleToggle}>
+                          <AddShoppingCartIcon />
+                          View
+                        </Button>
+                        <Backdrop
+                          sx={{
+                            color: "#fff",
+                            zIndex: (theme) => theme.zIndex.drawer + 1,
+                          }}
                           open={open}
-                          onClose={handleClose}
-                          aria-labelledby="alert-dialog-title"
-                          aria-describedby="alert-dialog-description"
+                          onClick={handleClose}
                         >
-                          <DialogTitle id="alert-dialog-title">
-                            {
-                              "Contact Here for Custom Designs on Avaliable Products"
-                            }
-                          </DialogTitle>
-                          <DialogContent dividers>
-                            <p
-                              id="alert-dialog-description"
-                              style={{
-                                fontFamily: "Times New Roman",
-                                fontSize: "30px",
-                                color: "black",
-                              }}
-                            >
-                              You can contact by using This contact Number
-                              <PhoneIcon /> 9966499429
-                            </p>
-                            <DialogContentText>
-                              By the way don't Forgot to share my website with
-                              your Loved Ones
-                            </DialogContentText>
-                          </DialogContent>
-                          <DialogActions>
-                            <Button onClick={handleClose} autoFocus>
-                              Close
-                            </Button>
-                          </DialogActions>
-                        </Dialog>{" "}
-                      </Backdrop>
-                    </CardActions>
-                  </Paper>
-                )}
-              </Grid>
-            ))}
-          </Grid>
-        </Container>
-      </main>
-      {/* Footer */}
-      <Box sx={{ bgcolor: "background.paper", p: 6 }} component="footer">
-        <Typography
-          variant="subtitle1"
-          align="center"
-          color="text.secondary"
-          component="p"
-        >
-          © 2022 EcomStore. All rights reserved.
-        </Typography>
-        <SocialIcons />
-        <Copyright />
-      </Box>
-      {/* End footer */}
-    </ThemeProvider>
+                          <Dialog
+                            open={open}
+                            onClose={handleClose}
+                            aria-labelledby="alert-dialog-title"
+                            aria-describedby="alert-dialog-description"
+                          >
+                            <DialogTitle id="alert-dialog-title">
+                              {
+                                "Contact Here for Custom Designs on Avaliable Products"
+                              }
+                            </DialogTitle>
+                            <DialogContent dividers>
+                              <p
+                                id="alert-dialog-description"
+                                style={{
+                                  fontFamily: "Times New Roman",
+                                  fontSize: "30px",
+                                  color: "black",
+                                }}
+                              >
+                                You can contact on this
+                                <PhoneIcon /> 9966499429 for orders
+                              </p>
+                              <p>
+                                By the way don't Forgot to share my{" "}
+                                <img
+                                  src={FavIconChangedBG}
+                                  alt="logo img"
+                                  width="50"
+                                  height="50"
+                                />
+                                with your
+                                <span
+                                  style={{ fontSize: "200%", color: "red" }}
+                                >
+                                  &hearts;
+                                </span>
+                                Ones
+                              </p>
+                            </DialogContent>
+                            <DialogActions>
+                              <Button onClick={handleClose} autoFocus>
+                                Close
+                              </Button>
+                            </DialogActions>
+                          </Dialog>{" "}
+                        </Backdrop>
+                      </CardActions>
+                    </Paper>
+                  )}
+                </Grid>
+              ))}
+            </Grid>
+          </Container>
+        </main>
+        {/* Footer */}
+        <Box sx={{ bgcolor: "background.paper", p: 6 }} component="footer">
+          <Typography
+            variant="subtitle1"
+            align="center"
+            color="text.secondary"
+            component="p"
+          >
+            © 2022 EcomStore. All rights reserved.
+          </Typography>
+          <SocialIcons />
+          <Copyright />
+        </Box>
+        {/* End footer */}
+      </ThemeProvider>
+    </>
   );
 }
