@@ -1,19 +1,16 @@
 {
   "files": {
-    "main.css": "/EcomStore/static/css/main.78fd9ce3.css",
-    "main.js": "/EcomStore/static/js/main.0080ca5a.js",
-    "static/js/787.d0a4c1b9.chunk.js": "/EcomStore/static/js/787.d0a4c1b9.chunk.js",
-    "static/media/FavIconChangedBG.png": "/EcomStore/static/media/FavIconChangedBG.bceb9a0bf4940c5dfde2.png",
-    "static/media/FavIconnoBG.png": "/EcomStore/static/media/FavIconnoBG.ae8185ad0a691aaa3f96.png",
-    "static/media/FavIcon.png": "/EcomStore/static/media/FavIcon.61e10946ce17df1f8e0e.png",
-    "static/media/FavIconChanged.png": "/EcomStore/static/media/FavIconChanged.03ec71622133c63028ad.png",
-    "index.html": "/EcomStore/index.html",
-    "main.78fd9ce3.css.map": "/EcomStore/static/css/main.78fd9ce3.css.map",
-    "main.0080ca5a.js.map": "/EcomStore/static/js/main.0080ca5a.js.map",
-    "787.d0a4c1b9.chunk.js.map": "/EcomStore/static/js/787.d0a4c1b9.chunk.js.map"
+    "main.css": "/PSRDesigns/static/css/main.a5acb543.css",
+    "main.js": "/PSRDesigns/static/js/main.0f47b41f.js",
+    "static/js/787.d0a4c1b9.chunk.js": "/PSRDesigns/static/js/787.d0a4c1b9.chunk.js",
+    "static/media/FavIconChangedBG.png": "/PSRDesigns/static/media/FavIconChangedBG.bceb9a0bf4940c5dfde2.png",
+    "index.html": "/PSRDesigns/index.html",
+    "main.a5acb543.css.map": "/PSRDesigns/static/css/main.a5acb543.css.map",
+    "main.0f47b41f.js.map": "/PSRDesigns/static/js/main.0f47b41f.js.map",
+    "787.d0a4c1b9.chunk.js.map": "/PSRDesigns/static/js/787.d0a4c1b9.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.78fd9ce3.css",
-    "static/js/main.0080ca5a.js"
+    "static/css/main.a5acb543.css",
+    "static/js/main.0f47b41f.js"
   ]
 }
