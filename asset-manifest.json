@@ -1,18 +1,19 @@
 {
   "files": {
     "main.css": "/EcomStore/static/css/main.a5acb543.css",
-    "main.js": "/EcomStore/static/js/main.76a12ad2.js",
+    "main.js": "/EcomStore/static/js/main.5614e9df.js",
     "static/js/787.d0a4c1b9.chunk.js": "/EcomStore/static/js/787.d0a4c1b9.chunk.js",
     "static/media/1.png": "/EcomStore/static/media/1.ae046ba94bf02f9eeb7a.png",
     "static/media/2.png": "/EcomStore/static/media/2.a4b6dba7665b13d39825.png",
+    "static/media/Prasad.jpeg": "/EcomStore/static/media/Prasad.1194d5533f4d0c5b41b7.jpeg",
     "static/media/FavIconChangedBG.png": "/EcomStore/static/media/FavIconChangedBG.bceb9a0bf4940c5dfde2.png",
     "index.html": "/EcomStore/index.html",
     "main.a5acb543.css.map": "/EcomStore/static/css/main.a5acb543.css.map",
-    "main.76a12ad2.js.map": "/EcomStore/static/js/main.76a12ad2.js.map",
+    "main.5614e9df.js.map": "/EcomStore/static/js/main.5614e9df.js.map",
     "787.d0a4c1b9.chunk.js.map": "/EcomStore/static/js/787.d0a4c1b9.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.a5acb543.css",
-    "static/js/main.76a12ad2.js"
+    "static/js/main.5614e9df.js"
   ]
 }
