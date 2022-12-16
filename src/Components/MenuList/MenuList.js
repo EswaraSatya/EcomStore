@@ -1,10 +1,10 @@
-import * as React from "react";
+import React, { useState } from "react";
 import Box from "@mui/material/Box";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 
 export default function MenuList({ menuItems, filterItem, users, setItem }) {
-  const [value, setValue] = React.useState("");
+  const [value, setValue] = useState("");
 
   const handleChange = (event, newValue) => {
     setValue(newValue);

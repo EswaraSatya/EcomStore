@@ -1,136 +1,61 @@
 import * as React from "react";
-import PropTypes from "prop-types";
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import Divider from "@mui/material/Divider";
-import Drawer from "@mui/material/Drawer";
-import List from "@mui/material/List";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemText from "@mui/material/ListItemText";
-import Toolbar from "@mui/material/Toolbar";
-import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
-import "../../TopBar.css";
-import DiamondIcon from "@mui/icons-material/Diamond";
-import { Stack } from "@mui/system";
-import { useNavigate } from "react-router-dom";
-import { Card, CardActionArea, CardMedia } from "@mui/material";
+import { Alert, Avatar } from "@mui/material";
+import BottomNav from "../../Products/BottomNav";
+import prasad from "./Prasad.jpeg"
 
-const drawerWidth = 240;
-const navItems = ["About", "Contact"];
 
-function ContactUs(props) {
-  const navigate = useNavigate();
-  const HomePage = () => {
-    navigate("/");
-  };
-  const { window } = props;
-  const [mobileOpen, setMobileOpen] = React.useState(false);
-
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
-  };
-
-  const drawer = (
-    <Box onClick={handleDrawerToggle} sx={{ textAlign: "center" }}>
-      <Typography variant="h6" sx={{ my: 2 }}>
-        MUI
-      </Typography>
-      <Divider />
-
-      <List>
-        {navItems.map((item) => (
-          <ListItem key={item} disablePadding>
-            <ListItemButton sx={{ textAlign: "center" }}>
-              <ListItemText primary={item} />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-    </Box>
-  );
-
-  const container =
-    window !== undefined ? () => window().document.body : undefined;
+function ContactUs() {
 
   return (
-    <Box sx={{ display: "flex" }}>
-      <AppBar component="nav">
-        <Toolbar>
-          <DiamondIcon
-            sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
-            onClick={HomePage}
-          />
+    <>
+      <Alert severity="success" color="info">
+        You Can Contact me on — <strong>9966499429</strong>
+      </Alert>
 
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{ flexGrow: 1, display: { xs: "none", sm: "block" } }}
-            style={{ display: "flex" }}
-          >
-            MUI
-          </Typography>
-          <Box sx={{ display: { xs: "none", sm: "block" } }}>
-            <Stack direction="row" spacing={2}>
-              <Button variant="outlined" color="error">
-                About Page
-              </Button>
-              <Button variant="outlined" color="error">
-                {" "}
-                Contact Us
-              </Button>
-            </Stack>
-          </Box>
-        </Toolbar>
-      </AppBar>
-      <Box component="nav">
-        <Drawer
-          container={container}
-          variant="temporary"
-          open={mobileOpen}
-          onClose={handleDrawerToggle}
-          ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
-          }}
-          sx={{
-            display: { xs: "block", sm: "none" },
-            "& .MuiDrawer-paper": {
-              boxSizing: "border-box",
-              width: drawerWidth,
-            },
-          }}
-        >
-          {drawer}
-        </Drawer>
-      </Box>
-      <Box component="main" sx={{ p: 3 }}>
-        <Toolbar />
-        <div className="main_body">
-          <div className="avatar">
-            <Card sx={{ maxWidth: 345 }}>
-              <CardActionArea>
-                <CardMedia
-                  component="img"
-                  height="140"
-                  image="/static/images/cards/contemplative-reptile.jpg"
-                  alt="green iguana"
-                />
-              </CardActionArea>
-            </Card>
-          </div>
-        </div>
-      </Box>
-    </Box>
+      <Avatar
+        sx={{ width: 160, height: 160 }}
+        style={{
+          top: "18px",
+          left: "31%"
+        }} src={prasad} />
+
+      <div style={{ paddingTop: "12%", paddingBottom: "15%" }}>
+        <h2 style={{
+          color: "#6f695d",
+          fontFamily: "Inknut Antiqua Light",
+          lineHeight: "1.4 !important",
+          fontSize: "28px"
+        }}>The Designer: Prasad Rao</h2>
+        <p style={{
+          color: "#555555",
+          fontFamily: "News Gothic Regular",
+          lineHeight: " 1.6 !important",
+          fontSize: "18px"
+        }}>Vijayawada Designer living in the Andhra Pradesh.
+        </p>
+        <p style={{
+          color: "#555555",
+          fontFamily: "News Gothic Regular",
+          lineHeight: " 1.6 !important",
+          fontSize: "18px"
+        }}>  After graduating with a degree from the Academy of Fine Arts in Amsterdam, Gaia worked as a teacher, painter, sculptor and designer for many years in her native Holland.
+
+          Before moving to south Portugal she saw a piece of modern Nuno felt which is different from the very known wet felting, as Nuno felting combines wool and fibres onto another fabric such as silk. That new technique opened a whole new range of possibilities, like creating very thin and shiny felt but also interesting textures.
+
+          “ Immediately my body knew that that was what I wanted to explore. As I started working with this materials, I literally could feel it growing under, in and through my hands.
+
+          Working with the beautiful, soft natural materials in gorgeous colours and lustre, I started to specialize in felting very light and delicate shawls. After a while this developed into felting dresses, jackets, waistcoats and bags.
+
+          My most recent inspiration is to work with organic forms, earthy colours, textures and sometimes elements of the plant world, instead of the synthetic art that I was so keen
+          on at the beginning of my career.
+
+          I would love to bring this unique, natural feeling into our homes by way of wall hangings which enhances a sense of nature and give an interior a warm cozier home-like character.
+          The felt panels not only enrich the wall in an unique way but also offer ideal acoustics to solve noise issues. ”</p>
+
+      </div>
+      <BottomNav /></>
+
   );
 }
-
-ContactUs.propTypes = {
-  /**
-   * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
-   */
-  window: PropTypes.func,
-};
 
 export default ContactUs;

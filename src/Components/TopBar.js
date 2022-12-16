@@ -17,8 +17,6 @@ import { useNavigate } from "react-router-dom";
 import { Grid } from "@mui/material";
 
 const drawerWidth = 240;
-const navItems = ["About", "Contact"];
-
 function DrawerAppBar(props) {
   const navigate = useNavigate();
 
@@ -26,7 +24,7 @@ function DrawerAppBar(props) {
     navigate("/ContactUs");
   };
   const HomePage = () => {
-    navigate("/PSRDesigns");
+    navigate("/EcomStore");
   };
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);

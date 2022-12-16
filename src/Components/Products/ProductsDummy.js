@@ -16,7 +16,7 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import FavIconChangedBG from "./FavIconChangedBG.png";
 import { useNavigate } from "react-router-dom";
 import "../TopBar.css";
-import { Avatar, BottomNavigation, BottomNavigationAction, CardActionArea, Pagination, Paper, Skeleton } from "@mui/material";
+import { CardActionArea, Pagination, Paper, Skeleton } from "@mui/material";
 import MenuList from "../MenuList/MenuList";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 import useScrollTrigger from "@mui/material/useScrollTrigger";
@@ -30,9 +30,7 @@ import SocialIcons from "../SocialIcons/SocialIcons";
 import { styled } from "@mui/material/styles";
 import InputBase from "@mui/material/InputBase";
 import SearchIcon from "@mui/icons-material/Search";
-import InfoIcon from '@mui/icons-material/Info';
-import CreditCardIcon from '@mui/icons-material/CreditCard';
-import { makeStyles } from '@mui/styles';
+import BottomNav from "./BottomNav";
 
 function Copyright() {
   return (
@@ -50,26 +48,13 @@ function Copyright() {
 }
 
 const theme = createTheme();
-const useStyles = makeStyles({
-  root: {
-    position: "fixed",
-    bottom: "0px",
-    left: "0px",
-    right: "0px",
-    marginBottom: "0px",
-    width: "100vw",
-  }
-});
 
 export default function Album(props) {
-  const classes = useStyles();
-
   const [users, setUsers] = useState([]);
   const [filteredResults, setFilteredResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [searchText, setSearchText] = useState("");
   const [open, setOpen] = useState(false);
-  const [value, setValue] = useState(0);
 
   const handleClose = () => {
     setOpen(false);
@@ -79,7 +64,7 @@ export default function Album(props) {
   };
   const navigate = useNavigate();
   const HomePage = () => {
-    navigate("/PSRDesigns");
+    navigate("/EcomStore");
   };
 
   function ElevationScroll(props) {
@@ -109,9 +94,9 @@ export default function Album(props) {
       });
   };
 
-  const searchItems = (searchValue) => {
-    setSearchText(searchValue);
-    if (searchText !== "") {
+  const searchItems = (event) => {
+    setSearchText(event.target.value);
+    if (event.target.value !== "") {
       const filteredData = users.filter((item) => {
         return Object.values(item)
           .join("")
@@ -144,7 +129,8 @@ export default function Album(props) {
   let newData = [];
   if (item.length > 0) {
     newData = item;
-  } else {
+  }
+  else {
     newData = users;
   }
   const darkTheme = createTheme({
@@ -270,7 +256,8 @@ export default function Album(props) {
                     <StyledInputBase
                       placeholder="Search…"
                       inputProps={{ "aria-label": "search" }}
-                      onChange={(event) => event.target.value}
+                      onChange={(e) => searchItems(e)}
+                      value={searchText}
                     />
                   </Search>
                 </>
@@ -304,84 +291,76 @@ export default function Album(props) {
                         width: "auto",
                       }}
                     >
-                      <CardActionArea>
-                        <CardMedia
-                          component="img"
-                          height="380px"
-                          width="auto" // sx={{ width: 220, marginLeft: "22px" }}
-                          image={card.image}
-                          alt="green iguana"
-                          style={{
-                            borderRadius: "25px",
+                      <CardMedia
+                        component="img"
+                        height="380px"
+                        width="auto" // sx={{ width: 220, marginLeft: "22px" }}
+                        image={card.image}
+                        alt="green iguana"
+                        style={{
+                          borderRadius: "25px",
+                        }}
+                      />
+                      <CardContent sx={{ flexGrow: 2 }}>
+                        <Typography gutterBottom variant="h5" component="h2">
+                          {card.title}
+                        </Typography>
+                      </CardContent>
+                      <CardActions>
+                        <Button color="primary" onClick={handleToggle}>
+                          <AddShoppingCartIcon />
+                          Buy Now
+                        </Button>
+                        <Backdrop
+                          sx={{
+                            color: "#fff",
+                            zIndex: (theme) => theme.zIndex.drawer + 1,
                           }}
-                        />
-                        <CardContent sx={{ flexGrow: 2 }}>
-                          <Typography gutterBottom variant="h5" component="h2">
-                            {card.title}
-                          </Typography>
-                        </CardContent>
-                        <CardActions>
-                          <Button color="primary" onClick={handleToggle}>
-                            <AddShoppingCartIcon />
-                            Buy Now
-                          </Button>
-                          <Backdrop
-                            sx={{
-                              color: "#fff",
-                              zIndex: (theme) => theme.zIndex.drawer + 1,
-                            }}
+                          open={open}
+                          onClick={handleClose}
+                        >
+                          <Dialog
                             open={open}
-                            onClick={handleClose}
+                            onClose={handleClose}
+                            aria-labelledby="alert-dialog-title"
+                            aria-describedby="alert-dialog-description"
                           >
-                            <Dialog
-                              open={open}
-                              onClose={handleClose}
-                              aria-labelledby="alert-dialog-title"
-                              aria-describedby="alert-dialog-description"
-                            >
-                              <DialogTitle id="alert-dialog-title">
-                                {
-                                  "Contact Here for Custom Designs on Avaliable Products"
-                                }
-                              </DialogTitle>
-                              <DialogContent dividers>
-                                <p
-                                  id="alert-dialog-description"
-                                  style={{
-                                    fontFamily: "Times New Roman",
-                                    fontSize: "30px",
-                                    color: "black",
-                                  }}
+                            <DialogTitle id="alert-dialog-title">
+                              {
+                                "Contact Here for Custom Designs on Avaliable Products"
+                              }
+                            </DialogTitle>
+                            <DialogContent dividers>
+                              <p
+                                id="alert-dialog-description"
+                                style={{
+                                  fontFamily: "Times New Roman",
+                                  fontSize: "30px",
+                                  color: "black",
+                                }}
+                              >
+                                You can contact on this
+                                <PhoneIcon /> 9966499429 for orders
+                              </p>
+                              <p>
+                                By the way don't Forgot to share my Website
+                                with your
+                                <span
+                                  style={{ fontSize: "200%", color: "red" }}
                                 >
-                                  You can contact on this
-                                  <PhoneIcon /> 9966499429 for orders
-                                </p>
-                                <p>
-                                  By the way don't Forgot to share my{" "}
-                                  <img
-                                    src={FavIconChangedBG}
-                                    alt="logo img"
-                                    width="50"
-                                    height="50"
-                                  />
-                                  with your
-                                  <span
-                                    style={{ fontSize: "200%", color: "red" }}
-                                  >
-                                    &hearts;
-                                  </span>
-                                  Ones
-                                </p>
-                              </DialogContent>
-                              <DialogActions>
-                                <Button onClick={handleClose} autoFocus>
-                                  Close
-                                </Button>
-                              </DialogActions>
-                            </Dialog>{" "}
-                          </Backdrop>
-                        </CardActions>
-                      </CardActionArea>
+                                  &hearts;
+                                </span>
+                                Ones
+                              </p>
+                            </DialogContent>
+                            <DialogActions>
+                              <Button onClick={handleClose} autoFocus>
+                                Close
+                              </Button>
+                            </DialogActions>
+                          </Dialog>{" "}
+                        </Backdrop>
+                      </CardActions>
                     </Paper>
                   )}
                 </Grid>
@@ -389,39 +368,28 @@ export default function Album(props) {
             </Grid>
           </Container>
           <br />
-          {window.screen.width < 1280 ? <Pagination style={{ marginLeft: "5%" }} count={10} variant="outlined" color="secondary" size="medium" /> : ""}
+          {newData.length > 0 ? (
+            window.screen.width < 1280 ? <Pagination style={{ marginLeft: "5%" }} count={10} variant="outlined" color="secondary" size="medium" /> : ""
 
-
+          ) : ""}
         </main>
         {/* Footer */}
-        <Box sx={{ bgcolor: "background.paper", p: 6 }} component="footer">
-          <Typography
-            variant="subtitle1"
-            align="center"
-            color="text.secondary"
-            component="p"
-          >
-            © 2022 PSR Designs. All rights reserved.
-          </Typography>
-          <SocialIcons />
-          <Copyright />
-        </Box>
-        <br />
-        {window.screen.width < 1280 ?
-          <BottomNavigation
-            showLabels
-            value={value}
-            onChange={(event, newValue) => {
-              setValue(newValue);
-            }}
-            className={classes.root}
+        {newData.length > 0 ? (
 
-          >
-            <BottomNavigationAction label="About Me" icon={<InfoIcon />} />
-            <BottomNavigationAction label="Business Card" icon={<CreditCardIcon />} />
-            <BottomNavigationAction icon={<Avatar src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmBP9UpWCtUj2mqqjdiVX31niDse10zUCGHQ&usqp=CAU" />} />
-          </BottomNavigation> : ""
-        }
+          <><Box sx={{ bgcolor: "background.paper", p: 6 }} component="footer">
+            <Typography
+              variant="subtitle1"
+              align="center"
+              color="text.secondary"
+              component="p"
+            >
+              © 2022 PSR Designs. All rights reserved.
+            </Typography>
+            <SocialIcons />
+            <Copyright />
+          </Box><br /></>
+        ) : ""}
+        <BottomNav />
         {/* End footer */}
       </ThemeProvider>
     </>
