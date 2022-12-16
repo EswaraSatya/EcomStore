@@ -67,10 +67,10 @@ const BottomNav = () => {
             {window.screen.width < 1280 ?
                 <BottomNavigation
                     showLabels
-                    value={value}
-                    onChange={(event, newValue) => {
-                        setValue(newValue);
-                    }}
+                    // value={value}
+                    // onChange={(event, newValue) => {
+                    //     setValue(newValue);
+                    // }}
                     className={classes.root}
 
                 >
