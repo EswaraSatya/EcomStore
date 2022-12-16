@@ -3,7 +3,7 @@ import Box from "@mui/material/Box";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 
-export default function MenuList({ filterValue }) {
+export default function MenuList({ menuItems, filterItem, users, setItem }) {
   const [value, setValue] = React.useState("");
 
   const handleChange = (event, newValue) => {
@@ -24,10 +24,23 @@ export default function MenuList({ filterValue }) {
         variant="scrollable"
         scrollButtons="auto"
       >
-        <Tab value="" label="All" />
-        <Tab value="Clothes" label="Clothes" />
+        <Tab onClick={() => setItem(users)}
+          value="" label="All" />
+
+        {menuItems.map((Val, id) => {
+          return (
+            <Tab
+              className="btn-dark text-white p-1 px-2 mx-5 btn fw-bold"
+              onClick={() => filterItem(Val)}
+              key={id}
+              label={Val}
+            />
+
+          );
+        })}
+        {/* <Tab value="Clothes" label="Clothes" />
         <Tab value="Stiching" label="Stiching" />
-        <Tab value="TieandDie" label="TieandDie" />
+        <Tab value="TieandDie" label="TieandDie" /> */}
       </Tabs>
     </Box>
   );

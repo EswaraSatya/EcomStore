@@ -15,7 +15,7 @@ import "../../TopBar.css";
 import DiamondIcon from "@mui/icons-material/Diamond";
 import { Stack } from "@mui/system";
 import { useNavigate } from "react-router-dom";
-import { Avatar, Card, CardActionArea, CardMedia, Paper } from "@mui/material";
+import { Card, CardActionArea, CardMedia } from "@mui/material";
 
 const drawerWidth = 240;
 const navItems = ["About", "Contact"];

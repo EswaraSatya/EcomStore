@@ -26,7 +26,7 @@ function DrawerAppBar(props) {
     navigate("/ContactUs");
   };
   const HomePage = () => {
-    navigate("/EcomStore");
+    navigate("/PSRDesigns");
   };
   const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);

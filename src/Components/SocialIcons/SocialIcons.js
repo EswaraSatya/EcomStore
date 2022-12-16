@@ -15,11 +15,11 @@ const SocialIcons = () => {
             <i class="fa fa-twitter"></i>
           </a>
         </li>
-        <li>
+        {/* <li>
           <a href="#">
             <i class="fa fa-linkedin"></i>
           </a>
-        </li>
+        </li> */}
         <li>
           <a
             href="https://www.youtube.com/@prasadsuryafd1353/"

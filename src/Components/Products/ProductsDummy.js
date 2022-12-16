@@ -13,17 +13,12 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Link from "@mui/material/Link";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import FavIconnoBG from "./FavIconnoBG.png";
-import FavIconn from "./FavIcon.png";
-import FavIconChanged from "./FavIconChanged.png";
 import FavIconChangedBG from "./FavIconChangedBG.png";
-
 import { useNavigate } from "react-router-dom";
 import "../TopBar.css";
-import { Avatar, Paper, Skeleton } from "@mui/material";
+import { Avatar, BottomNavigation, BottomNavigationAction, CardActionArea, Pagination, Paper, Skeleton } from "@mui/material";
 import MenuList from "../MenuList/MenuList";
 import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
-import SearchBar from "./SearchBar";
 import useScrollTrigger from "@mui/material/useScrollTrigger";
 import Backdrop from "@mui/material/Backdrop";
 import Dialog from "@mui/material/Dialog";
@@ -32,6 +27,12 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import PhoneIcon from "@mui/icons-material/Phone";
 import SocialIcons from "../SocialIcons/SocialIcons";
+import { styled } from "@mui/material/styles";
+import InputBase from "@mui/material/InputBase";
+import SearchIcon from "@mui/icons-material/Search";
+import InfoIcon from '@mui/icons-material/Info';
+import CreditCardIcon from '@mui/icons-material/CreditCard';
+import { makeStyles } from '@mui/styles';
 
 function Copyright() {
   return (
@@ -39,7 +40,7 @@ function Copyright() {
       <Typography variant="body2" color="text.secondary" align="center">
         {"Copyright © "}
         <Link color="inherit" href="http://EswaraSatya.github.io/EcomStore">
-          EcomStore
+          PSR Designs
         </Link>{" "}
         {new Date().getFullYear()}
         {"."}
@@ -49,13 +50,27 @@ function Copyright() {
 }
 
 const theme = createTheme();
+const useStyles = makeStyles({
+  root: {
+    position: "fixed",
+    bottom: "0px",
+    left: "0px",
+    right: "0px",
+    marginBottom: "0px",
+    width: "100vw",
+  }
+});
 
 export default function Album(props) {
+  const classes = useStyles();
+
   const [users, setUsers] = useState([]);
   const [filteredResults, setFilteredResults] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [searchText, setSearchText] = useState("");
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState(0);
+
   const handleClose = () => {
     setOpen(false);
   };
@@ -64,7 +79,7 @@ export default function Album(props) {
   };
   const navigate = useNavigate();
   const HomePage = () => {
-    navigate("/EcomStore");
+    navigate("/PSRDesigns");
   };
 
   function ElevationScroll(props) {
@@ -108,14 +123,27 @@ export default function Album(props) {
       setFilteredResults(users);
     }
   };
+  //take care of menu filter
+
+  const [item, setItem] = useState(users);
+
+  const menuItems = [...new Set(users.map((Val) => Val.value))];
+
+  const filterItem = (curcat) => {
+    const newItem = users.filter((newVal) => {
+      return newVal.value === curcat;
+    });
+    setItem(newItem);
+  };
+  //till here
 
   useEffect(() => {
     fetchData();
   }, []);
 
   let newData = [];
-  if (searchText.length > 0) {
-    newData = filteredResults;
+  if (item.length > 0) {
+    newData = item;
   } else {
     newData = users;
   }
@@ -134,16 +162,51 @@ export default function Album(props) {
       },
     },
   });
+  const SearchIconWrapper = styled("div")(({ theme }) => ({
+    padding: theme.spacing(0, 2),
+    height: "100%",
+    position: "absolute",
+    pointerEvents: "none",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  }));
+  const StyledInputBase = styled(InputBase)(({ theme }) => ({
+    color: "black",
+    "& .MuiInputBase-input": {
+      padding: theme.spacing(1, 1, 1, 0),
+      // vertical padding + font size from searchIcon
+      paddingLeft: `calc(1em + ${theme.spacing(4)})`,
+      transition: theme.transitions.create("width"),
+      width: "100%",
+      [theme.breakpoints.up("sm")]: {
+        width: "82ch",
+        height: "35px",
+      },
+    },
+  }));
+  const Search = styled("div")(({ theme }) => ({
+    position: "relative",
+    borderRadius: "20px",
+    backgroundColor: "#eeeeee",
+    "&:hover": {
+      backgroundColor: "#e3f2fd",
+    },
+    marginLeft: 0,
+    width: "100%",
+    [theme.breakpoints.up("sm")]: {
+      marginLeft: theme.spacing(1),
+      width: "auto",
+    },
+  }));
 
   return (
     <>
       <ThemeProvider theme={darkTheme}>
         <CssBaseline />
         <ElevationScroll {...props}>
-          <AppBar>
+          <AppBar color="transparent" sx={{ backdropFilter: "blur(20px)" }}>
             <Toolbar>
-              {/* <Avatar src={FavIconnoBG} /> */}
-
               <img
                 src={FavIconChangedBG}
                 alt="logo img"
@@ -199,10 +262,24 @@ export default function Album(props) {
                 spacing={2}
                 justifyContent="center"
               >
-                <SearchBar searchItems={searchItems} />
+                <>
+                  <Search>
+                    <SearchIconWrapper>
+                      <SearchIcon />
+                    </SearchIconWrapper>
+                    <StyledInputBase
+                      placeholder="Search…"
+                      inputProps={{ "aria-label": "search" }}
+                      onChange={(event) => event.target.value}
+                    />
+                  </Search>
+                </>
               </Stack>
 
-              <MenuList />
+              <MenuList filterItem={filterItem}
+                setItem={setItem}
+                menuItems={menuItems}
+                users={users} />
             </Container>
           </Box>
           <Container sx={{ py: 0 }} maxWidth="md">
@@ -227,88 +304,94 @@ export default function Album(props) {
                         width: "auto",
                       }}
                     >
-                      <CardMedia
-                        component="img"
-                        height="380px"
-                        width="auto" // sx={{ width: 220, marginLeft: "22px" }}
-                        image={card.image}
-                        alt="green iguana"
-                        style={{
-                          borderRadius: "25px",
-                        }}
-                      />
-                      <CardContent sx={{ flexGrow: 2 }}>
-                        <Typography gutterBottom variant="h5" component="h2">
-                          {card.title}
-                        </Typography>
-                      </CardContent>
-                      <CardActions>
-                        <Button color="primary" onClick={handleToggle}>
-                          <AddShoppingCartIcon />
-                          View
-                        </Button>
-                        <Backdrop
-                          sx={{
-                            color: "#fff",
-                            zIndex: (theme) => theme.zIndex.drawer + 1,
+                      <CardActionArea>
+                        <CardMedia
+                          component="img"
+                          height="380px"
+                          width="auto" // sx={{ width: 220, marginLeft: "22px" }}
+                          image={card.image}
+                          alt="green iguana"
+                          style={{
+                            borderRadius: "25px",
                           }}
-                          open={open}
-                          onClick={handleClose}
-                        >
-                          <Dialog
+                        />
+                        <CardContent sx={{ flexGrow: 2 }}>
+                          <Typography gutterBottom variant="h5" component="h2">
+                            {card.title}
+                          </Typography>
+                        </CardContent>
+                        <CardActions>
+                          <Button color="primary" onClick={handleToggle}>
+                            <AddShoppingCartIcon />
+                            Buy Now
+                          </Button>
+                          <Backdrop
+                            sx={{
+                              color: "#fff",
+                              zIndex: (theme) => theme.zIndex.drawer + 1,
+                            }}
                             open={open}
-                            onClose={handleClose}
-                            aria-labelledby="alert-dialog-title"
-                            aria-describedby="alert-dialog-description"
+                            onClick={handleClose}
                           >
-                            <DialogTitle id="alert-dialog-title">
-                              {
-                                "Contact Here for Custom Designs on Avaliable Products"
-                              }
-                            </DialogTitle>
-                            <DialogContent dividers>
-                              <p
-                                id="alert-dialog-description"
-                                style={{
-                                  fontFamily: "Times New Roman",
-                                  fontSize: "30px",
-                                  color: "black",
-                                }}
-                              >
-                                You can contact on this
-                                <PhoneIcon /> 9966499429 for orders
-                              </p>
-                              <p>
-                                By the way don't Forgot to share my{" "}
-                                <img
-                                  src={FavIconChangedBG}
-                                  alt="logo img"
-                                  width="50"
-                                  height="50"
-                                />
-                                with your
-                                <span
-                                  style={{ fontSize: "200%", color: "red" }}
+                            <Dialog
+                              open={open}
+                              onClose={handleClose}
+                              aria-labelledby="alert-dialog-title"
+                              aria-describedby="alert-dialog-description"
+                            >
+                              <DialogTitle id="alert-dialog-title">
+                                {
+                                  "Contact Here for Custom Designs on Avaliable Products"
+                                }
+                              </DialogTitle>
+                              <DialogContent dividers>
+                                <p
+                                  id="alert-dialog-description"
+                                  style={{
+                                    fontFamily: "Times New Roman",
+                                    fontSize: "30px",
+                                    color: "black",
+                                  }}
                                 >
-                                  &hearts;
-                                </span>
-                                Ones
-                              </p>
-                            </DialogContent>
-                            <DialogActions>
-                              <Button onClick={handleClose} autoFocus>
-                                Close
-                              </Button>
-                            </DialogActions>
-                          </Dialog>{" "}
-                        </Backdrop>
-                      </CardActions>
+                                  You can contact on this
+                                  <PhoneIcon /> 9966499429 for orders
+                                </p>
+                                <p>
+                                  By the way don't Forgot to share my{" "}
+                                  <img
+                                    src={FavIconChangedBG}
+                                    alt="logo img"
+                                    width="50"
+                                    height="50"
+                                  />
+                                  with your
+                                  <span
+                                    style={{ fontSize: "200%", color: "red" }}
+                                  >
+                                    &hearts;
+                                  </span>
+                                  Ones
+                                </p>
+                              </DialogContent>
+                              <DialogActions>
+                                <Button onClick={handleClose} autoFocus>
+                                  Close
+                                </Button>
+                              </DialogActions>
+                            </Dialog>{" "}
+                          </Backdrop>
+                        </CardActions>
+                      </CardActionArea>
                     </Paper>
                   )}
                 </Grid>
               ))}
             </Grid>
           </Container>
+          <br />
+          {window.screen.width < 1280 ? <Pagination style={{ marginLeft: "5%" }} count={10} variant="outlined" color="secondary" size="medium" /> : ""}
+
+
         </main>
         {/* Footer */}
         <Box sx={{ bgcolor: "background.paper", p: 6 }} component="footer">
@@ -318,11 +401,27 @@ export default function Album(props) {
             color="text.secondary"
             component="p"
           >
-            © 2022 EcomStore. All rights reserved.
+            © 2022 PSR Designs. All rights reserved.
           </Typography>
           <SocialIcons />
           <Copyright />
         </Box>
+        <br />
+        {window.screen.width < 1280 ?
+          <BottomNavigation
+            showLabels
+            value={value}
+            onChange={(event, newValue) => {
+              setValue(newValue);
+            }}
+            className={classes.root}
+
+          >
+            <BottomNavigationAction label="About Me" icon={<InfoIcon />} />
+            <BottomNavigationAction label="Business Card" icon={<CreditCardIcon />} />
+            <BottomNavigationAction icon={<Avatar src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQmBP9UpWCtUj2mqqjdiVX31niDse10zUCGHQ&usqp=CAU" />} />
+          </BottomNavigation> : ""
+        }
         {/* End footer */}
       </ThemeProvider>
     </>
